@@ -1,0 +1,34 @@
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8" />
+        <link rel="StyleSheet" th:href="@{/css/mystyle.css}"/>
+
+        <title th:text="#{denied}"></title>
+    </head>
+    <body>	
+        <header id="main-header">
+            <a id="logo-header" th:href="@{/home}">
+                <span class="site-name" th:text="#{titleIndex}"></span>
+                <span class="site-desc" th:text="#{nameAuthor}"></span>
+            </a>
+            <nav>
+                <ul>
+                    <li><a th:href="@{/home}" th:title="#{goToStart}" th:text="#{start}"></a></li>
+                    <li><a href='#' th:text="#{language}"></a>
+                        <ul>
+                            <li><a th:href="@{?lang=es}" th:title="#{spanish}" th:text="#{spanish}"></a></li>
+                            <li><a th:href="@{?lang=en}" th:title="#{english}" th:text="#{english}"></a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+        </header>
+        <section id="main-content">
+            <div class="content">
+                <div>
+                    <img src="../../images/accessDenied.gif" alt="DENIED"/>
+                </div>
+            </div>
+        </section>
+    </body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8"/>
+        <link rel="StyleSheet" th:href="@{/css/mystyle.css}"/>
+
+        <title th:text="#{titleMovieList}"></title>
+    </head>
+    <body>	
+        <header id="main-header">
+            <a id="logo-header" th:href="@{/home}">
+                <span class="site-name" th:text="#{titleIndex}"></span>
+                <span class="site-desc" th:text="#{nameAuthor}"></span>
+            </a>
+            <nav>
+                <ul>
+                    <li><a th:href="@{/home}" th:title="#{goToStart}" th:text="#{start}"></a></li>
+                    <li><a th:href="@{/listado}" th:title="#{goToMoviesList}" th:text="#{moviesList}"></a></li>
+                    <li><a href='#' th:text="#{language}"></a>
+                        <ul>
+                            <li><a th:href="@{?lang=es}" th:title="#{spanish}" th:text="#{spanish}"></a></li>
+                            <li><a th:href="@{?lang=en}" th:title="#{english}" th:text="#{english}"></a></li>
+                        </ul>
+                    </li>
+                    <li><a href='#' th:text="#{profile}"><span sec:authentication="name"></span></a>
+                        <ul>
+                            <li><form th:action="@{/logout}" method="post"><input type="submit" name="logout" th:value="#{signOut}" /></form></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+        </header>
+
+        <section id="main-content">
+            <div class="content">
+                <div class="service" th:unless="${#lists.isEmpty(peliculas)}">       
+                    <h1 th:text="#{tableMovies}"></h1>
+                    <table class="tableMovie">
+                        <tr>
+                            <th class="tablaMovie-tr-th" th:text="#{id}"></th>
+                            <th class="tablaMovie-tr-th" th:text="#{name}"></th>
+                            <th class="tablaMovie-tr-th" th:text="#{urlContent}"></th>
+                            <!--<td style="border:1px solid black;">Descripcion</td>
+                            <td style="border:1px solid black;">Año</td>
+                            <td style="border:1px solid black;">Director</td>
+                            <td style="border:1px solid black;">Reparto</td>
+                            <td style="border:1px solid black;">Url Portada</td>
+                            <td style="border:1px solid black;">Valoracion</td>-->
+                            <th class="tablaMovie-tr-th" colspan="3" th:text="#{options}"></th>
+                        </tr>
+                        <tr th:each="e:${peliculas}">
+                            <td th:text="${e.codigo}"></td> 
+                            <td th:text="${e.Title}"></td>
+                            <td th:text="${e.urlContenido}"></td>
+                            <!--<td th:text="${e.Plot}" style="border:1px solid black;">descripcion</td>
+                            <td th:text="${e.Year}" style="border:1px solid black;">year</td>
+                            <td th:text="${e.Director}" style="border:1px solid black;">director</td>
+                            <td th:text="${e.Actors}" style="border:1px solid black;">reparto</td>
+                            <td th:text="${e.Poster}" style="border:1px solid black;">urlPortada</td>
+                            <td th:text="${e.imbdRating}" style="border:1px solid black;">valoracion</td>-->
+                            <!--<td> <input type ='button' value = 'Eliminar' onclick="window.open('/eliminar');"/>  </td>-->
+                            <!--<td><a th:href="@{/eliminar/} + *{e.id}">Eliminar</a></td>-->
+                            <td><a th:href="@{peliculaIndividual(codigo=${e.codigo},Title=${e.Title})}" th:text="#{watchMovie}"></a></td> 
+                            <td sec:authorize="hasRole('ROLE_ADMIN')"><a th:href="@{editar(codigo=${e.codigo})}" th:text="#{edit}"></a></td> 
+                            <td sec:authorize="hasRole('ROLE_ADMIN')"><a th:href="@{delete(codigo=${e.codigo})}" th:text="#{remove}"></a></td> 
+                        </tr>
+                    </table>
+                    <br/>
+                </div>
+                <p th:if="${#lists.isEmpty(peliculas)}" th:text="#{empty}"></p> 
+                <br/>
+                <a href="/home" th:text="#{return}"></a>
+            </div>
+        </section>
+    </body>
+</html>

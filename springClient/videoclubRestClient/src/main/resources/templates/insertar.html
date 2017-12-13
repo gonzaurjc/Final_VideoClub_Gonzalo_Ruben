@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8"/>
+        <link rel="StyleSheet" th:href="@{/css/mystyle.css}"/>
+
+        <title th:text="#{titleInsert}"></title>
+    </head>
+    <body>
+        <header id="main-header">
+            <a id="logo-header" th:href="@{/home}">
+                <span class="site-name" th:text="#{titleIndex}"></span>
+                <span class="site-desc" th:text="#{nameAuthor}"></span>
+            </a>
+            <nav>
+                <ul>
+                    <li><a th:href="@{/home}" th:title="#{goToStart}" th:text="#{start}"></a></li>
+                    <li><a th:href="@{/listado}" th:title="#{goToMoviesList}" th:text="#{moviesList}"></a></li>
+                    <li><a href='#' th:text="#{language}"></a>
+                        <ul>
+                            <li><a th:href="@{?lang=es}" th:title="#{spanish}" th:text="#{spanish}"></a></li>
+                            <li><a th:href="@{?lang=en}" th:title="#{english}" th:text="#{english}"></a></li>
+                        </ul>
+                    </li>
+                    <li><a href='#' th:text="#{profile}"><span sec:authentication="name"></span></a>
+                        <ul>
+                            <li><form th:action="@{/logout}" method="post"><input type="submit" name="logout" th:value="#{signOut}" /></form></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+        </header>
+
+        <section id="main-content">
+            <div class="content">
+                <!--
+                <form th:action="@{/insertar}" method="POST" th:object="${pelicula}">
+                    <p>El código del producto se genera automáticamente </p>
+                    Nombre:<input type="text" id="Title" name="Title" th:field="*{Title}"/>
+                    <span th:if="${#fields.hasErrors('Title')}" th:errors="*{Title}">Title Error</span><br/>
+        
+                    UrlContenido:<input type="text" id="urlContenido" name="urlContenido" th:field="*{urlContenido}"/>
+                    <span th:if="${#fields.hasErrors('urlContenido')}" th:errors="*{urlContenido}">UrlC Error</span><br/>
+        
+                     Descripción:<input type="text" id="descripcion" name="descripcion" th:field="*{descripcion}"/>
+                      <span th:if="${#fields.hasErrors('descripcion')}" th:errors="*{descripcion}">Description Error</span><br/>
+          
+                      Año:<input type="text" id="year" name="year" th:field="*{year}"/><br/>
+          
+                      Director:<input type="text" id="director" name="director" th:field="*{director}"/>
+                      <span th:if="${#fields.hasErrors('director')}" th:errors="*{director}">Director Error</span><br/>
+          
+                      Reparto:<input type="text" id="reparto" name="reparto" th:field="*{reparto}"/>
+                      <span th:if="${#fields.hasErrors('reparto')}" th:errors="*{reparto}">Reparto Error</span><br/>
+          
+                      UrlPortada:<input type="text" id="urlPortada" name="urlPortada" th:field="*{urlPortada}"/>
+                      <span th:if="${#fields.hasErrors('urlPortada')}" th:errors="*{urlPortada}">UrlP Error</span><br/>
+          
+                      Valoracion:<input type="text" id="valoracion" name="valoracion" th:field="*{valoracion}"/><br/>
+                      
+                    
+                    <button type="submit">Insertar</button>
+                </form>
+                -->
+                <form th:action="@{busquedaPelicula}" method="post">
+                    <label th:text="#{title} + ':'"></label><input type="text" name="Title" /><br />
+                    <input type="submit" th:value="#{consult}" /><br />
+                </form>
+
+                <br/>
+                <a href="/home" th:text="#{return}"></a>
+            </div>
+        </section>
+    </body>
+</html>

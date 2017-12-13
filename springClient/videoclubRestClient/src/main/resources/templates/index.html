@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8"/>
+        <link rel="StyleSheet" th:href="@{/css/mystyle.css}"/>
+        <title th:text="#{titleApplication}"></title>
+    </head>
+    <body class="bodyIndex">
+        <header id="main-header">
+            <a id="logo-header" th:href="@{/}">
+                <span class="site-name" th:text="#{titleIndex}"></span>
+                <span class="site-desc" th:text="#{nameAuthor}"></span>
+            </a>
+            <nav>
+                <ul>
+                    <li><a href='#' th:text="#{language}"></a>
+                        <ul>
+                            <li><a th:href="@{?lang=es}" th:title="#{spanish}" th:text="#{spanish}"></a></li>
+                            <li><a th:href="@{?lang=en}" th:title="#{english}" th:text="#{english}"></a></li>
+                        </ul>
+                    </li>
+                    <li><a th:href="@{/home}" th:title="#{signIn}" th:text="#{signIn}"></a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <section>
+            <div>
+                <h1 class="h1Index" th:text="#{welcome}"></h1>
+            </div>
+        </section>
+    </body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8"/>
+        <link rel="StyleSheet" th:href="@{/css/mystyle.css}"/>
+
+        <title th:text="#{titleEdit}"></title>
+    </head>
+    <body>
+        <header id="main-header">
+            <a id="logo-header" th:href="@{/home}">
+                <span class="site-name" th:text="#{titleIndex}"></span>
+                <span class="site-desc" th:text="#{nameAuthor}"></span>
+            </a>
+            <nav>
+                <ul>
+                    <li><a th:href="@{/home}" th:title="#{goToStart}" th:text="#{start}"></a></li>
+                    <li><a th:href="@{/listado}" th:title="#{goToMoviesList}" th:text="#{moviesList}"></a></li>
+                    <li><a href='#' th:text="#{language}"></a>
+                        <ul>
+                            <li><a th:href="@{?lang=es}" th:title="#{spanish}" th:text="#{spanish}"></a></li>
+                            <li><a th:href="@{?lang=en}" th:title="#{english}" th:text="#{english}"></a></li>
+                        </ul>
+                    </li>
+                    <li><a href='#' th:text="#{profile}"><span sec:authentication="name"></span></a>
+                        <ul>
+                            <li><form th:action="@{/logout}" method="post"><input type="submit" name="logout" th:value="#{signOut}" /></form></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+        </header>
+
+        <section id="main-content">
+            <div class="content">
+                <h2 th:text="#{information} + ': ' + ${pelicula.getCodigo()}"/>
+                <form action="#" th:action="@{/editar}" th:object="${pelicula}" method="post">
+
+                    <p th:text="#{id}+':'"></p><input type="text" readonly='readonly' id="codigo" name="codigo" th:field="*{codigo}"/><br/>   
+
+                    <p th:text="#{title}+':'"></p><input type="text" th:value="${pelicula.Title}" id="Title" name="Title"/><br/>
+                    <p th:text="#{urlContent}+':'"></p><input type="text" th:value="${pelicula.urlContenido}" id="urlContenido" name="urlContenido"/><br/>
+                    <p th:text="#{description}+':'"></p><input type="text" th:value="${pelicula.Plot}" id="Plot" name="Plot"/><br/>
+                    <p th:text="#{year}+':'"></p><input type="text" th:value="${pelicula.Year}" id="Year" name="Year"/><br/>
+                    <p th:text="#{director}+':'"></p><input type="text" th:value="${pelicula.Director}" id="Director" name="Director"/><br/>
+                    <p th:text="#{cast}+':'"></p><input type="text" th:value="${pelicula.Actors}" id="Actors" name="Actors"/><br/>
+                    <p th:text="#{urlCover}+':'"></p><input type="text" th:value="${pelicula.Poster}" id="Poster" name="Poster"/><br/>
+                    <p th:text="#{assessment}+':'"></p><input type="text" th:value="${pelicula.imdbRating}" id="imdbRating" name="imdbRating"/><br/>
+
+                    <button type="submit" th:text="#{edit}"></button>
+                </form>
+                <br/>
+                <a href="/listado" th:text="#{return}"></a>
+            </div>
+        </section>
+    </body>
+</html>

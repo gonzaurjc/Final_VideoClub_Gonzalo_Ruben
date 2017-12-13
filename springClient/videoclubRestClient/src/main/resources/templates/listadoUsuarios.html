@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8"/>
+        <link rel="StyleSheet" th:href="@{/css/mystyle.css}"/>
+
+        <title th:text="#{titleUserList}"></title>
+    </head>
+    <body>	
+        <header id="main-header">
+            <a id="logo-header" th:href="@{/home}">
+                <span class="site-name" th:text="#{titleIndex}"></span>
+                <span class="site-desc" th:text="#{nameAuthor}"></span>
+            </a>
+            <nav>
+                <ul>
+                    <li><a th:href="@{/home}" th:title="#{goToStart}" th:text="#{start}"></a></li>
+                    <li><a th:href="@{/listado}" th:title="#{goToMoviesList}" th:text="#{moviesList}"></a></li>
+                    <li><a href='#' th:text="#{language}"></a>
+                        <ul>
+                            <li><a th:href="@{?lang=es}" th:title="#{spanish}" th:text="#{spanish}"></a></li>
+                            <li><a th:href="@{?lang=en}" th:title="#{english}" th:text="#{english}"></a></li>
+                        </ul>
+                    </li>
+                    <li><a href='#' th:text="#{profile}"><span sec:authentication="name"></span></a>
+                        <ul>
+                            <li><form th:action="@{/logout}" method="post"><input type="submit" name="logout" th:value="#{signOut}" /></form></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+        </header>
+
+        <section id="main-content">
+            <div class="content">
+                <div class="service">       
+                    <h1 th:text="#{tableUsers}"></h1>
+                    <table class="tableMovie">
+                        <tr th:if="${mismoUsuario}" >
+                            <td colspan="4"><p th:text="#{sameUser}"></p></td>
+                        </tr>
+                        <tr>
+                            <th class="tablaMovie-tr-th" th:text="#{user}"></th>
+                            <th class="tablaMovie-tr-th" colspan="3" th:text="#{options}"></th>
+                        </tr>
+                        <tr th:each="e:${users}">
+                            <td th:text="${e.user}"></td> 
+                            <!--<td th:text="${e.password}" style="border:1px solid black;">password</td>-->
+                            <td><a th:href="@{userIndividual(user=${e.user})}" th:text="#{watchUser}"></a></td> 
+                            <td sec:authorize="hasRole('ROLE_ADMIN')"><a th:href="@{editarUser(user=${e.user})}" th:text="#{edit}"></a></td> 
+                            <td sec:authorize="hasRole('ROLE_ADMIN')"><a th:href="@{eliminarUsuario(user=${e.user})}" th:text="#{remove}"></a></td> 
+                        </tr>
+                    </table>
+                    <br/><br/>
+                </div>
+                <!--<p th:if="${#users.isEmpty()}" th:text="#{empty}"></p> -->
+                <br/>
+                <a href="/home" th:text="#{return}"></a>
+            </div>
+        </section>
+    </body>
+</html>

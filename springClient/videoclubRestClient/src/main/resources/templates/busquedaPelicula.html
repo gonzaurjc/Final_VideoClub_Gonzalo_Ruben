@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8"/>
+        <link rel="StyleSheet" th:href="@{/css/mystyle.css}"/>
+
+        <title th:text="#{titleSearchMovie}"></title>
+    </head>
+    <body>
+        <header id="main-header">
+            <a id="logo-header" th:href="@{/home}">
+                <span class="site-name" th:text="#{titleIndex}"></span>
+                <span class="site-desc" th:text="#{nameAuthor}"></span>
+            </a>
+            <nav>
+                <ul>
+                    <li><a th:href="@{/home}" th:title="#{goToStart}" th:text="#{start}"></a></li>
+                    <li><a th:href="@{/listado}" th:title="#{goToMoviesList}" th:text="#{moviesList}"></a></li>
+                    <li><a href='#' th:text="#{language}"></a>
+                        <ul>
+                            <li><a th:href="@{?lang=es}" th:title="#{spanish}" th:text="#{spanish}"></a></li>
+                            <li><a th:href="@{?lang=en}" th:title="#{english}" th:text="#{english}"></a></li>
+                        </ul>
+                    </li>
+                    <li><a href='#' th:text="#{profile}"><span sec:authentication="name"></span></a>
+                        <ul>
+                            <li><form th:action="@{/logout}" method="post"><input type="submit" name="logout" th:value="#{signOut}" /></form></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+        </header>
+
+        <section id="main-content">
+            <div class="content">
+                <h1 th:text="#{reportDetail}"></h1>
+                <!--<iframe width="560" height="315" th:src="${pelicula.urlContenido}" frameborder="0"></iframe>-->
+                <!--<video th:href="${pelicula.urlContenido}"></video>-->
+                <table class="tableMovie">
+                    <tr>
+                        <th class="tablaMovie-tr-th" th:text="#{title}"></th>
+                        <th class="tablaMovie-tr-th" th:text="#{description}"></th>
+                        <th class="tablaMovie-tr-th" th:text="#{year}"></th>
+                        <th class="tablaMovie-tr-th" th:text="#{director}"></th>
+                        <th class="tablaMovie-tr-th" th:text="#{cast}"></th>
+                        <th class="tablaMovie-tr-th" th:text="#{urlCover}"></th>
+                        <th class="tablaMovie-tr-th" th:text="#{assessment}"></th>
+                    </tr>
+                    <tr>
+                        <td th:text="${film.Title}" ></td>
+                        <td th:text="${film.Plot}" ></td>
+                        <td th:text="${film.Year}" ></td>
+                        <td th:text="${film.Director}" ></td>
+                        <td th:text="${film.Actors}" ></td>
+                        <td><img th:src="${film.Poster}"/></td>
+                        <td class="center" th:text="${film.imdbRating}" ></td>
+                    </tr>
+                </table>
+
+                <h1 th:text="#{insertMovie}"></h1>
+
+
+
+                <form th:action="@{/insertar}" method="POST" th:object="${pelicula}">
+                    <table class="tableCenter">
+                        <tr>
+                            <td><label th:text="#{title}+':'"></label></td>
+                            <td><input type="text" th:value="${film.Title}" id="Title" name="Title"/></td>
+                        </tr>
+                        <tr>
+                            <td><label th:text="#{urlContent}+':'"></label></td>
+                            <td><input type="text" id="urlContenido" name="urlContenido"/></td>
+                        </tr>
+                        <tr>
+                            <td><label th:text="#{description}+':'"></label></td>
+                            <td><input type="text" th:value="${film.Plot}" id="Plot" name="Plot"/></td>
+                        </tr>
+                        <tr>
+                            <td><label th:text="#{year}+':'"></label></td>
+                            <td><input type="text" th:value="${film.Year}" id="Year" name="Year"/></td>
+                        </tr>
+                        <tr>
+                            <td><label th:text="#{director}+':'"></label></td>
+                            <td><input type="text" th:value="${film.Director}" id="Director" name="Director"/></td>
+                        </tr>
+                        <tr>
+                            <td><label th:text="#{cast}+':'"></label></td>
+                            <td><input type="text" th:value="${film.Actors}" id="Actors" name="Actors"/></td>
+                        </tr>
+                        <tr>
+                            <td><label th:text="#{urlCover}+':'"></label></td>
+                            <td><input type="text" th:value="${film.Poster}" id="Poster" name="Poster"/></td>
+                        </tr>
+                        <tr>
+                            <td><label th:text="#{assessment}+':'"></label></td>
+                            <td><input type="text" th:value="${film.imdbRating}" id="imdbRating" name="imdbRating"/></td>
+                        </tr>
+                    </table>
+                    <button type="submit" th:text="#{insertMovie}"></button>
+                </form>
+                <br/><br/>
+                <a href="/listado" th:text="#{return}"></a>
+            </div>
+        </section>
+    </body>
+
+</html>

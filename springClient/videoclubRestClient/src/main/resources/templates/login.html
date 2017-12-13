@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+    <head>
+        <meta charset="UTF-8"/>
+        <link rel="StyleSheet" th:href="@{/css/mystyle.css}"/>
+
+        <title th:text="#{titleLogin}"></title>
+    </head>
+    <body>
+        <header id="main-header">
+            <a id="logo-header" th:href="@{/}">
+                <span class="site-name" th:text="#{titleIndex}"></span>
+                <span class="site-desc" th:text="#{nameAuthor}"></span>
+            </a>
+            <nav>
+                <ul>
+                    <li><a th:href="@{/}" th:title="#{goToStart}" th:text="#{start}"></a></li>
+                    <li><a href='#' th:text="#{language}"></a>
+                        <ul>
+                            <li><a th:href="@{?lang=es}" th:title="#{spanish}" th:text="#{spanish}"></a></li>
+                            <li><a th:href="@{?lang=en}" th:title="#{english}" th:text="#{english}"></a></li>
+                        </ul>
+                    </li>
+                    <li><a th:href="@{/home}" th:title="#{signIn}" th:text="#{signIn}"></a></li>	
+                </ul>
+            </nav>
+        </header>
+
+        <section id="main-content">
+            <div class="content">
+                <h1 th:text="#{login}"></h1>
+                <p th:if="${param.error}" th:text="#{invalidCredentials}"></p>
+                <p th:if="${param.logout}" th:text="#{loggedOut}"></p>
+
+                <div class="row col-md-2">
+                    <form th:action="@{/login}" method="post">	
+                        <div class="row">
+                            <div class="col-md-1">
+                                <b th:text="#{user} + ':'"></b>
+                            </div>
+                            <div class="col-md-1">
+                                <input type="text" name="username" required="required"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-1">
+                                <b th:text="#{password} + ':'"></b>
+                            </div>
+                            <div class="col-md-1">					
+                                <input type="password" name="password" required="required"/>
+                            </div>
+                        </div>
+
+                        <br></br>
+
+                        <input type="submit" name="login" th:value="#{signIn}"/>
+                    </form>
+                </div>
+                <a th:href="@{/}" th:text="#{return}"></a>
+            </div>
+        </section>
+    </body>
+</html>

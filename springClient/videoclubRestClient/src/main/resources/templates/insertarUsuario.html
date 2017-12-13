@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8"/>
+        <link rel="StyleSheet" th:href="@{/css/mystyle.css}"/>
+
+        <title th:text="#{titleInsertUser}"></title>
+    </head>
+    <body>
+        <header id="main-header">
+            <a id="logo-header" th:href="@{/home}">
+                <span class="site-name" th:text="#{titleIndex}"></span>
+                <span class="site-desc" th:text="#{nameAuthor}"></span>
+            </a>
+            <nav>
+                <ul>
+                    <li><a th:href="@{/home}" th:title="#{goToStart}" th:text="#{start}"></a></li>
+                    <li><a th:href="@{/listado}" th:title="#{goToMoviesList}" th:text="#{moviesList}"></a></li>
+                    <li><a href='#' th:text="#{language}"></a>
+                        <ul>
+                            <li><a th:href="@{?lang=es}" th:title="#{spanish}" th:text="#{spanish}"></a></li>
+                            <li><a th:href="@{?lang=en}" th:title="#{english}" th:text="#{english}"></a></li>
+                        </ul>
+                    </li>
+                    <li><a href='#' th:text="#{profile}"><span sec:authentication="name"></span></a>
+                        <ul>
+                            <li><form th:action="@{/logout}" method="post"><input type="submit" name="logout" th:value="#{signOut}" /></form></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+        </header>
+
+        <section id="main-content">
+            <div class="content">
+                <h1 th:text="#{insertUser}"></h1>
+
+                <form th:action="@{/insertarUsuario}" method="POST" th:object="${user}">
+                    
+                    <table class="tableCenter">
+                        <tr th:if="${usuarioExiste}" >
+                            <td><p th:text="#{userAlreadyExists}"></p></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td><p th:text="#{user} + ':'"></p></td>
+                            <td><input type="text" id="user" name="user" required="required"/></td>
+                        </tr>
+                        <tr>
+                            <td><p th:text="'Email:'"></p></td>
+                            <td><input type="text" id="email" name="email" required="required"/></td>
+                        </tr>
+                        <tr>
+                            <td><p th:text="#{password} + ':'"></p></td>
+                            <td><input type="password" id="password" name="password" required="required"/></td>
+                        </tr>
+                        <tr>
+                            <td><p th:text="#{chooseRole} + ':'"></p></td>
+                            <td><select id="rol" name="rol">
+                                    <option id="rol" name="rol" value="ROLE_USER" th:text="#{user}"></option>
+                                    <option id="rol" name="rol" value="ROLE_ADMIN" th:text="#{admin}"></option>
+                                </select></td>
+                        </tr>
+                    </table>
+                        <button type="submit" th:text="#{insert}"></button>
+
+                </form>
+                <br/><br/>
+                <a href="/home" th:text="#{return}"></a>
+            </div>
+        </section>
+    </body>
+
+</html>
